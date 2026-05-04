@@ -1,3 +1,8 @@
+---
+layout: default
+title: "SOLID Exercise 3: Subscription Billing"
+---
+
 # SOLID Exercise 3: Subscription Billing
 
 ## Scenario

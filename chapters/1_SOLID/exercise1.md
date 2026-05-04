@@ -1,3 +1,8 @@
+---
+layout: default
+title: "SOLID Exercise 1: Order Notifications"
+---
+
 # SOLID Design Exercise1: Order Notifications
 
 ## Scenario

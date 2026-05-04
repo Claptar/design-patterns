@@ -1,3 +1,8 @@
+---
+layout: default
+title: SOLID Principles Guide
+---
+
 # SOLID Principles Guide
 
 SOLID is a set of five object-oriented design principles that help make code easier to change, test, and understand.

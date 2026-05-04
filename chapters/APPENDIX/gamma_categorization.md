@@ -1,3 +1,8 @@
+---
+layout: default
+title: Gamma Categorization of Design Patterns
+---
+
 # Gamma Categorization of Design Patterns
 
 **Gamma categorization** is a way of grouping the classic **Gang of Four design patterns** into three categories:
