@@ -8,3 +8,7 @@ Notes and exercises for learning design patterns.
 - [Exercise 1](chapters/1_SOLID/exercise1.md)
 - [Exercise 2](chapters/1_SOLID/exercise2.md)
 - [Exercise 3](chapters/1_SOLID/exercise3.md)
+
+## Appendix
+
+- [Gamma Categorization of Design Patterns](chapters/APPENDIX/gamma_categorization.md)
