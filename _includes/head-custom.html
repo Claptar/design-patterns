@@ -55,6 +55,27 @@
     body {
       padding-left: 220px;
     }
+
+    body.book-inner-page .wrapper {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 48px;
+    }
+
+    body.book-inner-page header,
+    body.book-inner-page footer {
+      display: none;
+    }
+
+    body.book-inner-page section {
+      float: none;
+      width: auto;
+      max-width: none;
+      border: 0;
+      padding: 0;
+    }
   }
 
   @media (max-width: 1179px) {
@@ -66,6 +87,13 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
+    const homePath = "{{ '/' | relative_url }}".replace(/\/$/, "/index.html");
+
+    if (currentPath !== homePath) {
+      document.body.classList.add("book-inner-page");
+    }
+
     const links = [
       { label: "Home", href: "{{ '/' | relative_url }}" },
       { section: "SOLID" },
@@ -86,8 +114,6 @@
     title.href = "{{ '/' | relative_url }}";
     title.textContent = "{{ site.title | default: 'Design Patterns' }}";
     sidebar.appendChild(title);
-
-    const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
 
     links.forEach(function (item) {
       if (item.section) {
