@@ -8,7 +8,7 @@ The guide is published as a Jekyll site. Every `.md` file is a standalone readab
 
 ## SOLID
 
-- [Notes](chapters/1_SOLID/solid.md)
+- [SOLID](chapters/1_SOLID/solid.md)
 - [Exercise 1](chapters/1_SOLID/exercise1.md)
 - [Exercise 2](chapters/1_SOLID/exercise2.md)
 - [Exercise 3](chapters/1_SOLID/exercise3.md)
