@@ -1,6 +1,10 @@
-# design-patterns
+# Design Patterns
 
-Notes and exercises for learning design patterns.
+A personal study guide for object-oriented design patterns. Each chapter covers one pattern or principle with notes explaining the concept and worked exercises that apply it to realistic scenarios.
+
+The notes focus on the *why* behind each pattern — when it solves a real problem and when it would be overkill. Exercises present broken or naive code and walk through a critique and refactor.
+
+The guide is published as a Jekyll site. Every `.md` file is a standalone readable page.
 
 ## SOLID
 
