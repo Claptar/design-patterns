@@ -1,0 +1,115 @@
+<style>
+  .book-sidebar {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    padding: 28px 22px;
+    overflow-y: auto;
+    border-right: 1px solid #e5e7eb;
+    background: #ffffff;
+  }
+
+  .book-sidebar__title {
+    display: block;
+    margin-bottom: 18px;
+    color: #111827;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  .book-sidebar__section {
+    margin: 20px 0 8px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .book-sidebar__link {
+    display: block;
+    margin: 2px 0;
+    padding: 7px 9px;
+    border-radius: 6px;
+    color: #374151;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .book-sidebar__link:hover,
+  .book-sidebar__link.is-active {
+    background: #f3f4f6;
+    color: #111827;
+  }
+
+  .book-sidebar__link.is-active {
+    font-weight: 700;
+  }
+
+  @media (min-width: 1180px) {
+    body {
+      padding-left: 220px;
+    }
+  }
+
+  @media (max-width: 1179px) {
+    .book-sidebar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const links = [
+      { label: "Home", href: "{{ '/' | relative_url }}" },
+      { section: "SOLID" },
+      { label: "Notes", href: "{{ '/chapters/1_SOLID/notes.html' | relative_url }}" },
+      { label: "Exercise 1", href: "{{ '/chapters/1_SOLID/exercise1.html' | relative_url }}" },
+      { label: "Exercise 2", href: "{{ '/chapters/1_SOLID/exercise2.html' | relative_url }}" },
+      { label: "Exercise 3", href: "{{ '/chapters/1_SOLID/exercise3.html' | relative_url }}" }
+    ];
+
+    const sidebar = document.createElement("nav");
+    sidebar.className = "book-sidebar";
+    sidebar.setAttribute("aria-label", "Book sections");
+
+    const title = document.createElement("a");
+    title.className = "book-sidebar__title";
+    title.href = "{{ '/' | relative_url }}";
+    title.textContent = "{{ site.title | default: 'Design Patterns' }}";
+    sidebar.appendChild(title);
+
+    const currentPath = window.location.pathname.replace(/\/$/, "/index.html");
+
+    links.forEach(function (item) {
+      if (item.section) {
+        const section = document.createElement("div");
+        section.className = "book-sidebar__section";
+        section.textContent = item.section;
+        sidebar.appendChild(section);
+        return;
+      }
+
+      const link = document.createElement("a");
+      const linkPath = new URL(item.href, window.location.origin).pathname.replace(/\/$/, "/index.html");
+      link.className = "book-sidebar__link";
+      link.href = item.href;
+      link.textContent = item.label;
+
+      if (linkPath === currentPath) {
+        link.classList.add("is-active");
+        link.setAttribute("aria-current", "page");
+      }
+
+      sidebar.appendChild(link);
+    });
+
+    document.body.prepend(sidebar);
+  });
+</script>
