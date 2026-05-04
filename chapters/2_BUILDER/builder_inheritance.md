@@ -1,3 +1,8 @@
+---
+layout: default
+title: Builder Inheritance
+---
+
 # Builder Inheritance
 
 ## 1. What is builder inheritance?

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Builder Design Pattern
+---
+
 # Builder Design Pattern
 
 ## 1. The core question

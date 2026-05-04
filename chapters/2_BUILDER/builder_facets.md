@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Builder Facets: Fluent Faceted Builder Pattern"
+---
+
 # Builder Facets: Fluent Faceted Builder Pattern
 
 ## 1. What are builder facets?
