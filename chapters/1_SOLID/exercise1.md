@@ -1,4 +1,4 @@
-# SOLID Design Exercise: Order Notifications
+# SOLID Design Exercise1: Order Notifications
 
 ## Scenario
 
