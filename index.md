@@ -31,5 +31,13 @@ Notes and exercises for learning design patterns.
 ## Factory
 
 - [Factory Methods as Named Constructors](chapters/3_FACTORY/factory_methods_named_constructors_note.md)
+    - [Exercise 1](chapters/3_FACTORY/exercise1.md)
+    - [Solution 1](chapters/3_FACTORY/solution1.md)
 - [Factories](chapters/3_FACTORY/factory.md)
+    - [Exercise 2](chapters/3_FACTORY/exercise2.md)
+    - [Solution 2](chapters/3_FACTORY/solution2.md)
 - [Factories and the Open/Closed Principle](chapters/3_FACTORY/factories_and_open_closed_principle_note.md)
+    - [Exercise 3](chapters/3_FACTORY/exercise3.md)
+    - [Solution 3](chapters/3_FACTORY/solution3.md)
+    - [Exercise 4](chapters/3_FACTORY/exercise4.md)
+    - [Solution 4](chapters/3_FACTORY/solution4.md)

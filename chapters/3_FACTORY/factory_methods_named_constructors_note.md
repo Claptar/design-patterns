@@ -645,5 +645,5 @@ In one sentence:
 
 ---
 
-[Factories](factory.md)
+[Factories](factory.md) · [Exercise 1](exercise1.md)
 

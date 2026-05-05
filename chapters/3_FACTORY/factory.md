@@ -677,5 +677,5 @@ In one sentence:
 
 ---
 
-[Factory Methods as Named Constructors](factory_methods_named_constructors_note.md) · [Factories and the Open/Closed Principle](factories_and_open_closed_principle_note.md)
+[Factory Methods as Named Constructors](factory_methods_named_constructors_note.md) · [Exercise 2](exercise2.md) · [Factories and the Open/Closed Principle](factories_and_open_closed_principle_note.md)
 
