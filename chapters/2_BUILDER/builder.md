@@ -5,51 +5,161 @@ title: Builder Design Pattern
 
 # Builder Design Pattern
 
-## 1. The core question
+## 1. What problem are we trying to solve?
 
-At first, Builder can look like a complicated way of collecting data before calling a constructor.
-
-For simple objects, that criticism is correct.
+Some objects are easy to create.
 
 ```python
-user = (
-    UserBuilder()
-    .with_name("Alice")
-    .with_email("alice@example.com")
+user = User(name="Alice", email="alice@example.com")
+point = Point(x=10, y=20)
+```
+
+There is no need for a design pattern here. The constructor is clear, the inputs are obvious, and there are not many rules involved.
+
+But some objects are harder to create correctly. They may have many optional settings, sensible defaults, validation rules, derived values, or combinations of inputs that should not be allowed.
+
+For example, imagine building an HTTP request. A request may need:
+
+- a method, such as `GET` or `POST`
+- a URL
+- headers
+- query parameters
+- authentication
+- a JSON body
+- timeout settings
+- retry settings
+- an idempotency key
+
+The issue is not only that there are many fields. The deeper issue is that these fields have rules.
+
+For example:
+
+- `GET` requests should not have JSON bodies.
+- Requests with JSON bodies should have a `Content-Type: application/json` header.
+- Authenticated requests need an `Authorization` header.
+- Idempotency keys should only be used with unsafe methods like `POST`, `PATCH`, and `DELETE`.
+- Timeout values should be positive.
+- Retry counts should not be negative.
+
+When construction has this kind of logic, a plain constructor call can become hard to read and easy to misuse.
+
+That is the kind of problem the **Builder pattern** is meant to solve.
+
+---
+
+## 2. Builder
+
+A **builder** is an object whose job is to construct another object step by step.
+
+Instead of passing every value into one constructor call, you give the builder a sequence of construction instructions. When the builder has enough information, you call `build()` and it creates the final object.
+
+In many examples, builder methods return `self`. That allows a fluent style:
+
+```python
+thing = (
+    ThingBuilder()
+    .set_one_value(...)
+    .set_another_value(...)
     .build()
 )
 ```
 
-If the alternative is just this:
+The final object is often simple. The builder is where temporary construction state, defaults, and validation can live.
+
+Here is a deliberately small toy example.
 
 ```python
-user = User(name="Alice", email="alice@example.com")
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Sandwich:
+    bread: str
+    filling: str
+    toasted: bool
+    extras: tuple[str, ...]
 ```
 
-then the builder is probably unnecessary.
+A normal constructor call might look like this:
 
-The Builder pattern becomes useful when **object construction is a process**, not just assigning a few fields.
+```python
+sandwich = Sandwich(
+    bread="sourdough",
+    filling="cheese",
+    toasted=True,
+    extras=("tomato", "pickles"),
+)
+```
 
-A good Builder can handle:
+That is already readable. But we can still use it to show the shape of a builder.
 
-* required fields
-* optional fields
-* defaults
-* validation
-* normalization
-* derived values
-* invalid combinations
-* step-by-step assembly
-* immutable final objects
-* hiding messy construction details
+```python
+class SandwichBuilder:
+    def __init__(self):
+        self._bread = "white"
+        self._filling = None
+        self._toasted = False
+        self._extras = []
 
-So a better mental model is:
+    def on_bread(self, bread):
+        self._bread = bread
+        return self
 
-> Builder is not just a fancy constructor. It is an object that owns the construction process for another object.
+    def with_filling(self, filling):
+        self._filling = filling
+        return self
+
+    def toasted(self):
+        self._toasted = True
+        return self
+
+    def add_extra(self, extra):
+        self._extras.append(extra)
+        return self
+
+    def build(self):
+        if not self._filling:
+            raise ValueError("A sandwich needs a filling")
+
+        return Sandwich(
+            bread=self._bread,
+            filling=self._filling,
+            toasted=self._toasted,
+            extras=tuple(self._extras),
+        )
+```
+
+Usage:
+
+```python
+sandwich = (
+    SandwichBuilder()
+    .on_bread("sourdough")
+    .with_filling("cheese")
+    .toasted()
+    .add_extra("tomato")
+    .add_extra("pickles")
+    .build()
+)
+```
+
+The builder is doing a few simple things:
+
+- keeping temporary state while the sandwich is being configured
+- providing defaults, such as `"white"` bread
+- exposing readable construction steps
+- validating that the required filling exists
+- creating the final immutable `Sandwich`
+
+At this point the builder may seem like a more fancy/complicated way of initializing objects, but let's take a look at a more natural example.
 
 ---
 
-## 2. The problem Builder solves
+## 3. HTTP request
+
+The sandwich example shows the mechanics of a builder, but it is not a strong reason to use one.
+
+An HTTP request is a more natural example because construction has real rules. The request has several optional parts, and some combinations are invalid.
 
 Imagine a class that represents an HTTP request:
 
@@ -104,14 +214,14 @@ The deeper problem is that request construction has rules.
 
 For example:
 
-* `GET` requests should not have JSON bodies.
-* `POST` requests with JSON bodies need `Content-Type: application/json`.
-* Authenticated requests need an `Authorization` header.
-* Idempotency keys should only be used for unsafe methods like `POST`, `PATCH`, and `DELETE`.
-* Timeout must be positive.
-* Retry count cannot be negative.
-* Query parameters should be converted to strings.
-* The final request object should not be partially valid.
+- `GET` requests should not have JSON bodies.
+- `POST` requests with JSON bodies need `Content-Type: application/json`.
+- Authenticated requests need an `Authorization` header.
+- Idempotency keys should only be used for unsafe methods like `POST`, `PATCH`, and `DELETE`.
+- Timeout must be positive.
+- Retry count cannot be negative.
+- Query parameters should be converted to strings.
+- The final request object should not be partially valid.
 
 If those rules are scattered across the codebase, every caller must remember them. That is fragile.
 
@@ -119,9 +229,7 @@ If all those rules go into the `HttpRequest` constructor, the constructor become
 
 Builder gives those construction rules a dedicated home.
 
----
-
-## 3. Builder example: HTTP request builder
+### A builder for HTTP requests
 
 First, keep the final object simple.
 
@@ -259,13 +367,13 @@ request = (
 
 Now the builder is doing useful work:
 
-* setting defaults
-* validating invalid combinations
-* deriving headers
-* normalizing query parameters
-* protecting the final object from invalid state
-* making the construction readable
-* centralizing construction rules
+- setting defaults
+- validating invalid combinations
+- deriving headers
+- normalizing query parameters
+- protecting the final object from invalid state
+- making the construction readable
+- centralizing construction rules
 
 This is much more than just collecting constructor arguments.
 
@@ -348,21 +456,21 @@ Another place where Builder feels natural is query construction.
 
 A query has optional parts:
 
-* selected columns
-* table
-* filters
-* parameters
-* sorting
-* limit
+- selected columns
+- table
+- filters
+- parameters
+- sorting
+- limit
 
 It also has rules:
 
-* `SELECT` must have columns.
-* `FROM` must have a table.
-* `WHERE` clauses should be parameterized.
-* `LIMIT` must be positive.
-* Sort direction should be controlled.
-* The final SQL string should be assembled consistently.
+- `SELECT` must have columns.
+- `FROM` must have a table.
+- `WHERE` clauses should be parameterized.
+- `LIMIT` must be positive.
+- Sort direction should be controlled.
+- The final SQL string should be assembled consistently.
 
 A builder can centralize that construction.
 
@@ -567,11 +675,11 @@ Use Builder when object construction involves:
 
 Do not use Builder when:
 
-* the object has only two or three obvious fields
-* there are no optional combinations
-* there is no validation or normalization
-* construction is already readable
-* the builder just repeats the constructor
+- the object has only two or three obvious fields
+- there are no optional combinations
+- there is no validation or normalization
+- construction is already readable
+- the builder just repeats the constructor
 
 Bad builder example:
 
@@ -621,14 +729,14 @@ The Builder pattern is useful when creating an object is not just assigning fiel
 
 A strong Builder can:
 
-* collect required and optional inputs
-* apply defaults
-* validate inputs
-* reject invalid combinations
-* normalize values
-* derive extra fields
-* hide messy assembly details
-* produce a clean, valid, often immutable final object
+- collect required and optional inputs
+- apply defaults
+- validate inputs
+- reject invalid combinations
+- normalize values
+- derive extra fields
+- hide messy assembly details
+- produce a clean, valid, often immutable final object
 
 In one sentence:
 
