@@ -151,235 +151,9 @@ The builder is doing a few simple things:
 - validating that the required filling exists
 - creating the final immutable `Sandwich`
 
-At this point the builder may seem like a more fancy/complicated way of initializing objects, but let's take a look at a more natural example.
-
 ---
 
-## 3. HTTP request
-
-The sandwich example shows the mechanics of a builder, but it is not a strong reason to use one.
-
-An HTTP request is a more natural example because construction has real rules. The request has several optional parts, and some combinations are invalid.
-
-Imagine a class that represents an HTTP request:
-
-```python
-class HttpRequest:
-    def __init__(
-        self,
-        method,
-        url,
-        headers,
-        query_params,
-        json_body,
-        timeout_seconds,
-        retry_count,
-    ):
-        self.method = method
-        self.url = url
-        self.headers = headers
-        self.query_params = query_params
-        self.json_body = json_body
-        self.timeout_seconds = timeout_seconds
-        self.retry_count = retry_count
-```
-
-A request might be created like this:
-
-```python
-request = HttpRequest(
-    "POST",
-    "https://api.billing.com/customers/123/invoices",
-    {
-        "Authorization": "Bearer abc123",
-        "Content-Type": "application/json",
-        "Idempotency-Key": "invoice-789",
-    },
-    {
-        "expand": "payments",
-    },
-    {
-        "amount": 4900,
-        "currency": "usd",
-        "description": "Monthly subscription",
-    },
-    10,
-    3,
-)
-```
-
-This is hard to read, but readability is only part of the problem.
-
-The deeper problem is that request construction has rules.
-
-For example:
-
-- `GET` requests should not have JSON bodies.
-- `POST` requests with JSON bodies need `Content-Type: application/json`.
-- Authenticated requests need an `Authorization` header.
-- Idempotency keys should only be used for unsafe methods like `POST`, `PATCH`, and `DELETE`.
-- Timeout must be positive.
-- Retry count cannot be negative.
-- Query parameters should be converted to strings.
-- The final request object should not be partially valid.
-
-If those rules are scattered across the codebase, every caller must remember them. That is fragile.
-
-If all those rules go into the `HttpRequest` constructor, the constructor becomes complicated.
-
-Builder gives those construction rules a dedicated home.
-
-### A builder for HTTP requests
-
-First, keep the final object simple.
-
-```python
-from dataclasses import dataclass
-from typing import Any
-
-
-@dataclass(frozen=True)
-class HttpRequest:
-    method: str
-    url: str
-    headers: dict[str, str]
-    query_params: dict[str, str]
-    json_body: dict[str, Any] | None
-    timeout_seconds: int
-    retry_count: int
-```
-
-The final object just represents a valid request. It does not need to know every detail of how to build one.
-
-Now create a builder:
-
-```python
-class HttpRequestBuilder:
-    def __init__(self):
-        self._method = None
-        self._url = None
-        self._headers = {}
-        self._query_params = {}
-        self._json_body = None
-        self._timeout_seconds = 10
-        self._retry_count = 0
-        self._auth_token = None
-        self._idempotency_key = None
-
-    def get(self, url):
-        self._method = "GET"
-        self._url = url
-        return self
-
-    def post(self, url):
-        self._method = "POST"
-        self._url = url
-        return self
-
-    def with_auth_token(self, token):
-        self._auth_token = token
-        return self
-
-    def with_header(self, name, value):
-        self._headers[name] = value
-        return self
-
-    def with_query_param(self, name, value):
-        self._query_params[name] = str(value)
-        return self
-
-    def with_json_body(self, body):
-        self._json_body = body
-        return self
-
-    def with_idempotency_key(self, key):
-        self._idempotency_key = key
-        return self
-
-    def with_timeout(self, seconds):
-        self._timeout_seconds = seconds
-        return self
-
-    def with_retries(self, count):
-        self._retry_count = count
-        return self
-
-    def build(self):
-        if not self._method:
-            raise ValueError("HTTP method is required")
-
-        if not self._url:
-            raise ValueError("URL is required")
-
-        if self._timeout_seconds <= 0:
-            raise ValueError("Timeout must be positive")
-
-        if self._retry_count < 0:
-            raise ValueError("Retry count cannot be negative")
-
-        if self._method == "GET" and self._json_body is not None:
-            raise ValueError("GET requests cannot have a JSON body")
-
-        headers = dict(self._headers)
-
-        if self._auth_token:
-            headers["Authorization"] = f"Bearer {self._auth_token}"
-
-        if self._json_body is not None:
-            headers["Content-Type"] = "application/json"
-
-        if self._idempotency_key:
-            if self._method not in {"POST", "PATCH", "DELETE"}:
-                raise ValueError("Idempotency keys only apply to unsafe methods")
-
-            headers["Idempotency-Key"] = self._idempotency_key
-
-        return HttpRequest(
-            method=self._method,
-            url=self._url,
-            headers=headers,
-            query_params=dict(self._query_params),
-            json_body=self._json_body,
-            timeout_seconds=self._timeout_seconds,
-            retry_count=self._retry_count,
-        )
-```
-
-Usage:
-
-```python
-request = (
-    HttpRequestBuilder()
-    .post("https://api.billing.com/customers/123/invoices")
-    .with_auth_token("abc123")
-    .with_query_param("expand", "payments")
-    .with_json_body({
-        "amount": 4900,
-        "currency": "usd",
-        "description": "Monthly subscription",
-    })
-    .with_idempotency_key("invoice-789")
-    .with_timeout(10)
-    .with_retries(3)
-    .build()
-)
-```
-
-Now the builder is doing useful work:
-
-- setting defaults
-- validating invalid combinations
-- deriving headers
-- normalizing query parameters
-- protecting the final object from invalid state
-- making the construction readable
-- centralizing construction rules
-
-This is much more than just collecting constructor arguments.
-
----
-
-## 4. Why not just put this in `HttpRequest.__init__`?
+## 3. Why not just put this in `HttpRequest.__init__`?
 
 You can put all the logic in the constructor, but then `HttpRequest` has two jobs:
 
@@ -407,7 +181,7 @@ The builder can be mutable while construction is in progress. The final object c
 
 ---
 
-## 5. Invalid construction example
+## 4. Invalid construction example
 
 Without a builder, a caller might accidentally create a bad request:
 
@@ -450,7 +224,7 @@ That is where Builder starts to earn its keep.
 
 ---
 
-## 6. Another natural example: SQL query builder
+## 5. Another natural example: SQL query builder
 
 Another place where Builder feels natural is query construction.
 
@@ -553,7 +327,7 @@ This is useful because the builder is not merely collecting fields. It is assemb
 
 ---
 
-## 7. Builder versus constructor
+## 6. Builder versus constructor
 
 Use a normal constructor when construction is simple:
 
@@ -592,7 +366,7 @@ Especially when the object has validation rules or invalid combinations.
 
 ---
 
-## 8. Builder versus factory
+## 7. Builder versus factory
 
 Builder and Factory are both creational patterns, but they solve different problems.
 
@@ -628,7 +402,7 @@ They can also work together. A factory might choose the right builder, and the b
 
 ---
 
-## 9. Builder and SOLID
+## 8. Builder and SOLID
 
 Builder often supports SOLID principles, especially Single Responsibility Principle.
 
@@ -653,7 +427,7 @@ Builder separates those responsibilities.
 
 ---
 
-## 10. When Builder is worth using
+## 9. When Builder is worth using
 
 Use Builder when object construction involves:
 
@@ -671,7 +445,7 @@ Use Builder when object construction involves:
 
 ---
 
-## 11. When Builder is too much
+## 10. When Builder is too much
 
 Do not use Builder when:
 
@@ -707,7 +481,7 @@ point = Point(10, 20)
 
 ---
 
-## 12. Practical rule of thumb
+## 11. Practical rule of thumb
 
 Ask:
 
@@ -723,7 +497,7 @@ If yes, Builder is probably overengineering.
 
 ---
 
-## 13. Final summary
+## 12. Final summary
 
 The Builder pattern is useful when creating an object is not just assigning fields, but following a construction process.
 
