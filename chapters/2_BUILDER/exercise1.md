@@ -158,3 +158,7 @@ class NotificationBuilder:
         # TODO: return Notification(...)
         pass
 ```
+
+---
+
+[Script](exercise1.py) · [Solution](solution1.md)

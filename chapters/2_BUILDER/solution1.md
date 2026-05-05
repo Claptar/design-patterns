@@ -496,3 +496,7 @@ NotificationBuilder -> knows how to construct a valid notification
 ```
 
 In this small example, the builder may still look a little more verbose than using the constructor directly. That is normal. The point of the exercise is to practice the shape of the pattern on a small object before using it on objects where construction has more rules.
+
+---
+
+[Back to exercise](exercise1.md) · [Solution script](exercise1_solution.py) · [My solution](my_exercise1_solution.py)

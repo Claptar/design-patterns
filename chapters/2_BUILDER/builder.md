@@ -741,3 +741,9 @@ A strong Builder can:
 In one sentence:
 
 > Builder is worth using when construction has enough rules or steps that you want a dedicated object to manage the process before producing the final object.
+
+---
+
+## Exercise
+
+[Exercise 1: Notification Builder](exercise1.md)

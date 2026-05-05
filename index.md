@@ -19,6 +19,8 @@ Notes and exercises for learning design patterns.
 - [Builder](chapters/2_BUILDER/builder.md)
 - [Builder Facets](chapters/2_BUILDER/builder_facets.md)
 - [Builder Inheritance](chapters/2_BUILDER/builder_inheritance.md)
+- [Exercise 1](chapters/2_BUILDER/exercise1.md)
+- [Solution 1](chapters/2_BUILDER/solution1.md)
 
 ## Appendix
 
