@@ -222,3 +222,7 @@ Examples:
 Gamma categorization groups design patterns by what kind of design problem they solve:
 
 > Creating objects, composing objects, or coordinating behavior.
+
+---
+
+[Home](../../index.md)

@@ -1010,3 +1010,7 @@ An abstraction is useful only when it reduces real complexity instead of adding 
 The goal is not to make code look “architectural.”
 
 The goal is to make future changes safer and easier.
+
+---
+
+[Exercise 1](exercise1.md) · [Exercise 2](exercise2.md) · [Exercise 3](exercise3.md)

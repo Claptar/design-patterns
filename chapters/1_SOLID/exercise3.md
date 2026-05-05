@@ -908,3 +908,7 @@ Payment success should probably be recorded more carefully before and after char
 ```
 
 A clean design would keep `BillingService` as the workflow coordinator and move pricing, payment, receipt, and persistence details into focused collaborators.
+
+---
+
+[Back to SOLID](solid.md)

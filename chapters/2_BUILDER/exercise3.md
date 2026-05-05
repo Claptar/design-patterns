@@ -381,4 +381,4 @@ EmailMessageBuilder().to("alice@example.com").html("<p>Hello</p>")
 
 ---
 
-[Script](exercise3.py) · [Solution](solution3.md)
+[Back to Builder Inheritance](builder_inheritance.md) · [Script](exercise3.py) · [Solution](solution3.md)

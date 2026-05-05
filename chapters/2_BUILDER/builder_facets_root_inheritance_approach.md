@@ -698,4 +698,4 @@ In one sentence:
 
 ---
 
-[Back to Builder Facets](builder_facets.md)
+[Back to Builder Facets](builder_facets.md) · [Exercise 2](exercise2.md)

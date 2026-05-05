@@ -313,4 +313,4 @@ class ImportanceFacet(NotificationFacet):
 
 ---
 
-[Script](exercise2.py) · [Solution](solution2.md)
+[Back to Root-Builder Inheritance Approach](builder_facets_root_inheritance_approach.md) · [Script](exercise2.py) · [Solution](solution2.md)

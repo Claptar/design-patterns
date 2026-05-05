@@ -541,3 +541,7 @@ The problem is not the existence of these steps. The problem is that `OrderServi
 | LSP | Not directly visible because no inheritance or subtyping is shown. Be careful when introducing notification abstractions. |
 
 The strongest issues are **SRP**, **OCP**, and **DIP**. The main extra critique points are failure behavior, testability, unclear transaction boundaries, and the fact that ISP/LSP are not obvious violations from this exact snippet.
+
+---
+
+[Back to SOLID](solid.md)

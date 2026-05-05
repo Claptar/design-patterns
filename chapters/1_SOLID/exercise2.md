@@ -492,3 +492,7 @@ The fixed implementation is saved here: [exercise2_fixed.py](exercise2_fixed.py)
 | LSP | Not directly visible. Matters once exporter abstractions are introduced. |
 
 A good design keeps the workflow in `ReportService`, but moves the details of permissions, mapping, format generation, auditing, and storage into focused collaborators.
+
+---
+
+[Back to SOLID](solid.md)
