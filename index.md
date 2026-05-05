@@ -24,6 +24,8 @@ Notes and exercises for learning design patterns.
 - [Solution 1](chapters/2_BUILDER/solution1.md)
 - [Exercise 2](chapters/2_BUILDER/exercise2.md)
 - [Solution 2](chapters/2_BUILDER/solution2.md)
+- [Exercise 3](chapters/2_BUILDER/exercise3.md)
+- [Solution 3](chapters/2_BUILDER/solution3.md)
 
 ## Appendix
 

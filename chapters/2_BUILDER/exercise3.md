@@ -378,3 +378,7 @@ So if `EmailMessageBuilder` inherits `.to(...)`, the chain can continue with ema
 ```python
 EmailMessageBuilder().to("alice@example.com").html("<p>Hello</p>")
 ```
+
+---
+
+[Script](exercise3.py) · [Solution](solution3.md)

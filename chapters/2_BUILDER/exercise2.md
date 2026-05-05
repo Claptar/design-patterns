@@ -313,4 +313,4 @@ class ImportanceFacet(NotificationFacet):
 
 ---
 
-[Script](exercise2.py) · [My solution](my_exercise2_solution.py) · [Solution](solution2.md)
+[Script](exercise2.py) · [Solution](solution2.md)

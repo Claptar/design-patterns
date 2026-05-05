@@ -625,3 +625,7 @@ But it can become problematic when:
 In one sentence:
 
 > Builder inheritance is useful when your built objects form an inheritance hierarchy, and you want the builders to mirror that hierarchy while preserving fluent chaining.
+
+---
+
+[Exercise 3](exercise3.md)

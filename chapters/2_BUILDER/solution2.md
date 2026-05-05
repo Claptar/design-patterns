@@ -528,4 +528,4 @@ This solution uses the faceted builder pattern:
 
 ---
 
-[Back to exercise](exercise2.md) · [Solution script](exercise2_solution.py) · [My solution](my_exercise2_solution.py)
+[Back to exercise](exercise2.md) · [Solution script](exercise2_solution.py)

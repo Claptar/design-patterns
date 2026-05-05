@@ -337,3 +337,7 @@ At that point, composition or builder facets may be clearer.
 A useful rule:
 
 > Builder inheritance is good when the final objects have a real inheritance relationship and the builder hierarchy stays shallow.
+
+---
+
+[Back to exercise](exercise3.md) · [Solution script](exercise3_solution.py)
