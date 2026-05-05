@@ -765,4 +765,4 @@ In one sentence:
 
 ---
 
-[Root-Builder Inheritance Approach](builder_facets_root_inheritance_approach.md)
+[Root-Builder Inheritance Approach](builder_facets_root_inheritance_approach.md) · [Exercise 2](exercise2.md)
