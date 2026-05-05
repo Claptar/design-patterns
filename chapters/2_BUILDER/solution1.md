@@ -499,4 +499,4 @@ In this small example, the builder may still look a little more verbose than usi
 
 ---
 
-[Back to exercise](exercise1.md) · [Solution script](exercise1_solution.py) · [My solution](my_exercise1_solution.py)
+[Back to exercise](exercise1.md) · [Solution script](exercise1_solution.py)
