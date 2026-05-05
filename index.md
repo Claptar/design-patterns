@@ -27,3 +27,9 @@ Notes and exercises for learning design patterns.
 - [Builder Inheritance](chapters/2_BUILDER/builder_inheritance.md)
     - [Exercise 3](chapters/2_BUILDER/exercise3.md)
     - [Solution 3](chapters/2_BUILDER/solution3.md)
+
+## Factory
+
+- [Factory Methods as Named Constructors](chapters/3_FACTORY/factory_methods_named_constructors_note.md)
+- [Factories](chapters/3_FACTORY/factory.md)
+- [Factories and the Open/Closed Principle](chapters/3_FACTORY/factories_and_open_closed_principle_note.md)
