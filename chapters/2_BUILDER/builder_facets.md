@@ -88,9 +88,275 @@ Now the chain shows which part of the account is being configured.
 
 ---
 
-## 3. Important fluent-design idea
+## 3. The API we want
 
-Inside a facet, methods usually return `self`:
+Before looking at implementation, start with the desired usage.
+
+We want code like this:
+
+```python
+account = (
+    CustomerAccountBuilder()
+    .identity
+        .named("Alice")
+        .with_email("alice@example.com")
+    .billing
+        .with_card_token("tok_123")
+    .security
+        .enable_two_factor_auth()
+    .notifications
+        .enable_sms_notifications()
+    .build()
+)
+```
+
+This should read as:
+
+```text
+Build a customer account.
+Configure identity.
+Configure billing.
+Configure security.
+Configure notifications.
+Then validate and build the account.
+```
+
+The goal is not just shorter code. The goal is to make construction read in terms of the object's real configuration areas.
+
+---
+
+## 4. The implementation idea in one picture
+
+The final object is shared.
+
+The root builder owns it.
+
+Each facet modifies one part of it.
+
+```text
+                  CustomerAccountBuilder
+                           │
+                           │ owns
+                           ▼
+                    CustomerAccount
+                           ▲
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+ IdentityBuilder     BillingBuilder     SecurityBuilder
+        │                  │                  │
+        └──────── all modify the same account ┘
+```
+
+The root builder exposes facets:
+
+```python
+builder.identity
+builder.billing
+builder.notifications
+builder.security
+```
+
+Each facet knows how to get back to the root builder so the chain can move from one facet to another.
+
+---
+
+## 5. Minimal working example
+
+This section uses only a few fields so the mechanism is easy to see.
+
+### Final object
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass
+class CustomerAccount:
+    name: str | None = None
+    email: str | None = None
+    card_token: str | None = None
+    two_factor_auth: bool = False
+    sms_notifications: bool = False
+```
+
+The final object is intentionally simple. It only stores the completed data.
+
+### Root builder
+
+```python
+class CustomerAccountBuilder:
+    def __init__(self):
+        self._account = CustomerAccount()
+        self._identity_builder = IdentityBuilder(self, self._account)
+        self._billing_builder = BillingBuilder(self, self._account)
+        self._security_builder = SecurityBuilder(self, self._account)
+        self._notifications_builder = NotificationBuilder(self, self._account)
+
+    @property
+    def identity(self):
+        return self._identity_builder
+
+    @property
+    def billing(self):
+        return self._billing_builder
+
+    @property
+    def security(self):
+        return self._security_builder
+
+    @property
+    def notifications(self):
+        return self._notifications_builder
+
+    def build(self):
+        if not self._account.name:
+            raise ValueError("Name is required")
+
+        if not self._account.email:
+            raise ValueError("Email is required")
+
+        if self._account.sms_notifications and not self._account.two_factor_auth:
+            raise ValueError("SMS notifications require two-factor authentication")
+
+        return self._account
+```
+
+The root builder has two jobs:
+
+1. own the object being built,
+2. validate rules that involve multiple facets.
+
+The private fields use names like `_identity_builder` because they store builder facet objects, not identity data. The public property remains `.identity` so the fluent API reads naturally.
+
+
+For example, this rule involves both notifications and security:
+
+```text
+SMS notifications require two-factor authentication.
+```
+
+So it belongs in the root builder.
+
+### Shared facet base
+
+To move fluently between facets, each facet needs access to the root builder.
+
+```python
+class BuilderFacet:
+    def __init__(self, root, account):
+        self._root = root
+        self._account = account
+
+    @property
+    def identity(self):
+        return self._root.identity
+
+    @property
+    def billing(self):
+        return self._root.billing
+
+    @property
+    def security(self):
+        return self._root.security
+
+    @property
+    def notifications(self):
+        return self._root.notifications
+
+    def build(self):
+        return self._root.build()
+```
+
+This is the small trick that allows cross-facet chaining.
+
+A method like `.named(...)` returns the current facet.
+
+A property like `.billing` returns another facet.
+
+A method like `.build()` delegates back to the root builder.
+
+### Identity facet
+
+```python
+class IdentityBuilder(BuilderFacet):
+    def named(self, name):
+        if not name.strip():
+            raise ValueError("Name cannot be blank")
+
+        self._account.name = name.strip()
+        return self
+
+    def with_email(self, email):
+        email = email.strip().lower()
+
+        if "@" not in email:
+            raise ValueError("Invalid email address")
+
+        self._account.email = email
+        return self
+```
+
+Identity-specific input rules stay in the identity facet.
+
+### Billing facet
+
+```python
+class BillingBuilder(BuilderFacet):
+    def with_card_token(self, card_token):
+        if not card_token.startswith("tok_"):
+            raise ValueError("Card token must start with 'tok_'")
+
+        self._account.card_token = card_token
+        return self
+```
+
+Billing-specific input rules stay in the billing facet.
+
+### Security facet
+
+```python
+class SecurityBuilder(BuilderFacet):
+    def enable_two_factor_auth(self):
+        self._account.two_factor_auth = True
+        return self
+```
+
+### Notification facet
+
+```python
+class NotificationBuilder(BuilderFacet):
+    def enable_sms_notifications(self):
+        self._account.sms_notifications = True
+        return self
+```
+
+### Usage
+
+```python
+account = (
+    CustomerAccountBuilder()
+    .identity
+        .named("Alice")
+        .with_email("ALICE@EXAMPLE.COM")
+    .billing
+        .with_card_token("tok_123")
+    .security
+        .enable_two_factor_auth()
+    .notifications
+        .enable_sms_notifications()
+    .build()
+)
+```
+
+This is the minimal version of the pattern.
+
+---
+
+## 6. How fluent chaining actually works
+
+The chain works because there are three kinds of operations.
+
+### 1. Methods inside a facet return `self`
 
 ```python
 def named(self, name):
@@ -98,19 +364,13 @@ def named(self, name):
     return self
 ```
 
-That lets you chain methods inside the same facet:
+So this stays inside the identity facet:
 
 ```python
 .identity.named("Alice").with_email("alice@example.com")
 ```
 
-But to move between facets fluently, each facet also needs access to the other facets:
-
-```python
-.identity.named("Alice").billing.with_card_token("tok_123")
-```
-
-So each facet can expose properties that delegate back to the root builder:
+### 2. Facet navigation properties return another facet
 
 ```python
 @property
@@ -118,13 +378,105 @@ def billing(self):
     return self._root.billing
 ```
 
-That gives us fluent chaining across facets.
+So after working in identity, this can jump to billing:
+
+```python
+.identity.named("Alice").billing.with_card_token("tok_123")
+```
+
+### 3. `build()` delegates to the root builder
+
+```python
+def build(self):
+    return self._root.build()
+```
+
+So you can call `.build()` from whichever facet you are currently in.
+
+The full movement looks like this:
+
+```text
+.identity
+    returns IdentityBuilder
+
+.named(...)
+    returns IdentityBuilder
+
+.billing
+    returns BillingBuilder
+
+.with_card_token(...)
+    returns BillingBuilder
+
+.security
+    returns SecurityBuilder
+
+.build()
+    calls CustomerAccountBuilder.build()
+```
+
+That is the core fluent-facet mechanism.
 
 ---
 
-## 4. Full fluent faceted builder example
+## 7. Where validation belongs
 
-### Final object
+Builder facets are useful because validation can be split naturally.
+
+### Local validation
+
+Local validation belongs inside the facet that owns that area.
+
+Example:
+
+```python
+class BillingBuilder(BuilderFacet):
+    def with_card_token(self, card_token):
+        if not card_token.startswith("tok_"):
+            raise ValueError("Card token must start with 'tok_'")
+
+        self._account.card_token = card_token
+        return self
+```
+
+This rule is purely about billing, so it belongs in `BillingBuilder`.
+
+### Global validation
+
+Global validation belongs in the root builder.
+
+Example:
+
+```python
+class CustomerAccountBuilder:
+    def build(self):
+        if self._account.sms_notifications and not self._account.two_factor_auth:
+            raise ValueError("SMS notifications require two-factor authentication")
+
+        return self._account
+```
+
+This rule involves two facets:
+
+```text
+notifications
+security
+```
+
+So it belongs in the root builder.
+
+A good rule of thumb:
+
+```text
+If the rule only mentions one facet, put it in that facet.
+If the rule connects multiple facets, put it in the root builder.
+```
+
+---
+
+## 8. Complete example with more fields
+
+The minimal example above showed the mechanism. A fuller account builder might include more fields:
 
 ```python
 from dataclasses import dataclass
@@ -146,203 +498,17 @@ class CustomerAccount:
     login_alerts: bool = False
 ```
 
-The final object is simple. It only stores the completed data.
-
----
-
-## 5. Root builder
-
-The root builder owns the object being built and exposes each facet.
-
-```python
-class CustomerAccountBuilder:
-    def __init__(self):
-        self._account = CustomerAccount()
-
-        self._identity = IdentityBuilder(self, self._account)
-        self._billing = BillingBuilder(self, self._account)
-        self._notifications = NotificationBuilder(self, self._account)
-        self._security = SecurityBuilder(self, self._account)
-
-    @property
-    def identity(self):
-        return self._identity
-
-    @property
-    def billing(self):
-        return self._billing
-
-    @property
-    def notifications(self):
-        return self._notifications
-
-    @property
-    def security(self):
-        return self._security
-
-    def build(self):
-        if not self._account.name:
-            raise ValueError("Name is required")
-
-        if not self._account.email:
-            raise ValueError("Email is required")
-
-        if self._account.sms_notifications and not self._account.two_factor_auth:
-            raise ValueError("SMS notifications require two-factor authentication")
-
-        return self._account
-```
-
-The root builder handles validation that involves multiple facets.
-
-For example, `SMS notifications require two-factor authentication` involves both notifications and security, so it belongs in the root builder.
-
----
-
-## 6. Base facet helper
-
-To avoid repeating the same navigation properties in every facet, we can create a small base class.
-
-```python
-class BuilderFacet:
-    def __init__(self, root, account):
-        self._root = root
-        self._account = account
-
-    @property
-    def identity(self):
-        return self._root.identity
-
-    @property
-    def billing(self):
-        return self._root.billing
-
-    @property
-    def notifications(self):
-        return self._root.notifications
-
-    @property
-    def security(self):
-        return self._root.security
-
-    def build(self):
-        return self._root.build()
-```
-
-This is what allows cross-facet chaining:
-
-```python
-.identity.named("Alice").billing.with_card_token("tok_123").build()
-```
-
-Each facet can return itself for methods within the facet, while also exposing other facets through properties.
-
----
-
-## 7. Identity facet
-
-```python
-class IdentityBuilder(BuilderFacet):
-    def named(self, name):
-        if not name.strip():
-            raise ValueError("Name cannot be blank")
-
-        self._account.name = name.strip()
-        return self
-
-    def with_email(self, email):
-        email = email.strip().lower()
-
-        if "@" not in email:
-            raise ValueError("Invalid email address")
-
-        self._account.email = email
-        return self
-```
-
-This facet owns identity-specific construction rules:
+The same structure still applies:
 
 ```text
-name cannot be blank
-email should be normalized
-email should look valid
+CustomerAccountBuilder
+  identity      -> name, email
+  billing       -> address, VAT number, card token
+  notifications -> email notifications, SMS notifications
+  security      -> two-factor auth, login alerts
 ```
 
----
-
-## 8. Billing facet
-
-```python
-class BillingBuilder(BuilderFacet):
-    def with_billing_address(self, address):
-        if not address.strip():
-            raise ValueError("Billing address cannot be blank")
-
-        self._account.billing_address = address.strip()
-        return self
-
-    def with_vat_number(self, vat_number):
-        self._account.vat_number = vat_number.strip().upper()
-        return self
-
-    def with_card_token(self, card_token):
-        if not card_token.startswith("tok_"):
-            raise ValueError("Card token must start with 'tok_'")
-
-        self._account.card_token = card_token
-        return self
-```
-
-This facet owns billing-related setup and validation.
-
----
-
-## 9. Notification facet
-
-```python
-class NotificationBuilder(BuilderFacet):
-    def enable_email_notifications(self):
-        self._account.email_notifications = True
-        return self
-
-    def enable_sms_notifications(self):
-        self._account.sms_notifications = True
-        return self
-
-    def disable_all_notifications(self):
-        self._account.email_notifications = False
-        self._account.sms_notifications = False
-        return self
-```
-
-This facet only deals with notification preferences.
-
----
-
-## 10. Security facet
-
-```python
-class SecurityBuilder(BuilderFacet):
-    def enable_two_factor_auth(self):
-        self._account.two_factor_auth = True
-        return self
-
-    def disable_two_factor_auth(self):
-        self._account.two_factor_auth = False
-        return self
-
-    def enable_login_alerts(self):
-        self._account.login_alerts = True
-        return self
-```
-
-This facet owns security-related setup.
-
----
-
-## 11. Fully fluent usage
-
-Now you can fluently move across facets:
+The fuller usage might look like this:
 
 ```python
 account = (
@@ -364,90 +530,11 @@ account = (
 )
 ```
 
-This works because:
-
-- `named()` returns the identity facet itself.
-- `with_email()` returns the identity facet itself.
-- `.billing` is a property available on the identity facet through `BuilderFacet`.
-- billing methods return the billing facet.
-- `.security` moves from billing to security.
-- `.notifications` moves from security to notifications.
-- `.build()` delegates back to the root builder.
+At this size, facets start to feel more useful. The construction process has several clear areas, and grouping them improves readability.
 
 ---
 
-## 12. Local validation versus global validation
-
-Builder facets are useful because validation can be split naturally.
-
-### Local validation
-
-Local validation belongs inside a facet.
-
-Example:
-
-```python
-def with_card_token(self, card_token):
-    if not card_token.startswith("tok_"):
-        raise ValueError("Card token must start with 'tok_'")
-
-    self._account.card_token = card_token
-    return self
-```
-
-This rule is purely about billing.
-
-### Global validation
-
-Global validation belongs in the root builder.
-
-Example:
-
-```python
-def build(self):
-    if self._account.sms_notifications and not self._account.two_factor_auth:
-        raise ValueError("SMS notifications require two-factor authentication")
-
-    return self._account
-```
-
-This rule involves two facets: notifications and security.
-
----
-
-## 13. Why not just use one big builder?
-
-A single builder is fine when the construction process is moderately complex.
-
-But once the builder methods naturally fall into groups, one big builder can become hard to navigate:
-
-```python
-CustomerAccountBuilder
-    .named(...)
-    .with_email(...)
-    .with_billing_address(...)
-    .with_vat_number(...)
-    .with_card_token(...)
-    .enable_email_notifications(...)
-    .enable_sms_notifications(...)
-    .enable_two_factor_auth(...)
-    .enable_login_alerts(...)
-```
-
-The faceted version groups the construction language:
-
-```python
-.identity.named(...)
-.billing.with_card_token(...)
-.security.enable_two_factor_auth()
-.notifications.enable_sms_notifications()
-```
-
-This improves readability and keeps each builder class smaller.
-
----
-
-## 14. Another fluent example: HTTP request facets
+## 9. Another place facets appear: HTTP request builders
 
 A faceted HTTP request builder could have these facets:
 
@@ -483,15 +570,72 @@ request = (
 
 This is useful because route, auth, body, and reliability are different construction concerns.
 
-The same fluent-cross-facet technique works:
+The same fluent-cross-facet technique applies:
 
-- facet methods return `self`
-- facets expose other facets through properties
-- `build()` delegates to the root builder
+```text
+facet methods return self
+facet navigation properties return another facet
+build delegates to the root builder
+```
 
 ---
 
-## 15. Advantages
+## 10. Why not just use one big builder?
+
+A single builder is fine when the construction process is only moderately complex.
+
+For example, this may be perfectly readable:
+
+```python
+report = (
+    ReportBuilder()
+    .with_title("Monthly Sales")
+    .with_author("Alice")
+    .with_summary()
+    .with_charts()
+    .build()
+)
+```
+
+Facets may be unnecessary there.
+
+But once the builder starts collecting unrelated areas, it becomes harder to navigate:
+
+```python
+CustomerAccountBuilder()
+    .named(...)
+    .with_email(...)
+    .with_billing_address(...)
+    .with_vat_number(...)
+    .with_card_token(...)
+    .enable_email_notifications(...)
+    .enable_sms_notifications(...)
+    .enable_two_factor_auth(...)
+    .enable_login_alerts(...)
+```
+
+The faceted version groups the construction language:
+
+```python
+.identity.named(...)
+.billing.with_card_token(...)
+.security.enable_two_factor_auth()
+.notifications.enable_sms_notifications()
+```
+
+So the decision is not:
+
+> Should every builder be faceted?
+
+The decision is:
+
+> Is this builder getting large because it has distinct categories of construction?
+
+If yes, facets may help.
+
+---
+
+## 11. Advantages
 
 | Advantage | Explanation |
 |---|---|
@@ -505,7 +649,7 @@ The same fluent-cross-facet technique works:
 
 ---
 
-## 16. Downsides
+## 12. Downsides
 
 Faceted builders add more code.
 
@@ -544,21 +688,43 @@ Prefer:
 point = Point(10, 20)
 ```
 
----
-
-## 17. Regular Builder versus Faceted Builder
-
-| Question | Regular Builder | Faceted Builder |
-|---|---|---|
-| Main problem | Object has many construction steps. | Object has many construction steps across different categories. |
-| Structure | One builder. | Root builder plus smaller facet builders. |
-| Best for | Moderately complex objects. | Large objects with distinct configuration areas. |
-| Risk | Builder becomes too large. | Too many small builder classes. |
-| Example | `ReportBuilder` | `CustomerAccountBuilder.identity.billing.security` |
+Also be careful not to create too many tiny facets. If the categories are artificial, the design becomes harder rather than easier.
 
 ---
 
-## 18. Rule of thumb
+## 13. Builder facets versus builder inheritance
+
+Builder facets and builder inheritance solve different problems.
+
+| Pattern variation | Use when |
+|---|---|
+| Builder facets | One complex object has distinct construction areas like identity, billing, security, or layout. |
+| Builder inheritance | Your final objects have an inheritance hierarchy, and child builders should reuse parent builder steps. |
+
+Example of builder facets:
+
+```python
+CustomerAccountBuilder()
+    .identity.named("Alice")
+    .billing.with_card_token("tok_123")
+    .security.enable_two_factor_auth()
+```
+
+Example of builder inheritance:
+
+```python
+EmployeeBuilder()
+    .named("Alice")       # inherited from PersonBuilder
+    .works_as("Engineer") # defined on EmployeeBuilder
+```
+
+Builder facets are about **organizing construction areas**.
+
+Builder inheritance is about **specializing builders for subclasses**.
+
+---
+
+## 14. Rule of thumb
 
 Use a regular Builder when you think:
 
@@ -568,7 +734,7 @@ Use builder facets when you think:
 
 > This builder itself is getting too big, and its methods naturally fall into groups.
 
-Use fluent builder facets when you want:
+Use fluent builder facets when you want this style:
 
 ```python
 builder.identity.do_one().do_two().billing.do_three().security.do_four().build()
@@ -584,15 +750,19 @@ build delegates back to the root builder
 
 ---
 
-## 19. Final summary
+## 15. Final summary
 
 Builder facets split a large builder into smaller, focused builders that cooperate to construct the same final object.
 
 A fluent faceted builder gives you both:
 
-- organization through facets
-- smooth chaining across facets
+- organization through facets,
+- smooth chaining across facets.
 
 In one sentence:
 
 > A fluent faceted builder is useful when one complex object has several distinct construction areas, and you want each area to have its own focused builder while still supporting one readable chain of calls.
+
+---
+
+[Root-Builder Inheritance Approach](builder_facets_root_inheritance_approach.md)
