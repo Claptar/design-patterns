@@ -55,9 +55,9 @@ class OrderService:
         })
 ```
 
-Full original implementation file: [exercise1.py](chapters/1_SOLID/exercise1.py)
+Full original implementation file: [exercise1.py](chapters/1_INTRODUCTION/exercise1.py)
 
-Fixed implementation file: [exercise1_fixed.py](chapters/1_SOLID/exercies1_fixed.py)
+Fixed implementation file: [exercise1_fixed.py](chapters/1_INTRODUCTION/exercies1_fixed.py)
 
 ---
 
