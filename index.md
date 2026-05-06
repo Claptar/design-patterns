@@ -41,3 +41,16 @@ Notes and exercises for learning design patterns.
     - [Solution 3](chapters/3_FACTORY/solution3.md)
     - [Exercise 4](chapters/3_FACTORY/exercise4.md)
     - [Solution 4](chapters/3_FACTORY/solution4.md)
+
+## Prototype
+
+- [Prototype](chapters/4_PROTOTYPE/prototype.md)
+    - [Exercise 1](chapters/4_PROTOTYPE/exercise1.md)
+    - [Solution 1](chapters/4_PROTOTYPE/solution1.md)
+    - [Exercise 2](chapters/4_PROTOTYPE/exercise2.md)
+    - [Solution 2](chapters/4_PROTOTYPE/solution2.md)
+    - [Exercise 3](chapters/4_PROTOTYPE/exercise3.md)
+    - [Solution 3](chapters/4_PROTOTYPE/solution3.md)
+- [Prototype Factories](chapters/4_PROTOTYPE/prototype_factories.md)
+    - [Exercise 4](chapters/4_PROTOTYPE/exercise4.md)
+    - [Solution 4](chapters/4_PROTOTYPE/solution4.md)
