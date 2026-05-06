@@ -59,4 +59,12 @@ The guide is published as a Jekyll site. Every `.md` file is a standalone readab
 ## Adapter
 
 - [Adapter Design Pattern](chapters/6_ADAPTER/adapter_design_pattern.md)
+    - [Exercise 1](chapters/6_ADAPTER/exercise1.md)
+    - [Solution 1](chapters/6_ADAPTER/solution1.md)
+    - [Exercise 2](chapters/6_ADAPTER/exercise2.md)
+    - [Solution 2](chapters/6_ADAPTER/solution2.md)
+    - [Exercise 3](chapters/6_ADAPTER/exercise3.md)
+    - [Solution 3](chapters/6_ADAPTER/solution3.md)
 - [Cached Adapter Design Pattern](chapters/6_ADAPTER/cached_adapter_design_pattern.md)
+    - [Exercise 4](chapters/6_ADAPTER/exercise4.md)
+    - [Solution 4](chapters/6_ADAPTER/solution4.md)
