@@ -61,3 +61,8 @@ Notes and exercises for learning design patterns.
 - [Singleton as Decorator](chapters/5_SINGLETON/singleton_as_decorator.md)
 - [Singleton as Metaclass](chapters/5_SINGLETON/singleton_as_metaclass.md)
 - [Monostate Pattern](chapters/5_SINGLETON/monostate_pattern.md)
+
+## Adapter
+
+- [Adapter Design Pattern](chapters/6_ADAPTER/adapter_design_pattern.md)
+- [Cached Adapter Design Pattern](chapters/6_ADAPTER/cached_adapter_design_pattern.md)
