@@ -40,3 +40,9 @@ The guide is published as a Jekyll site. Every `.md` file is a standalone readab
     - [Solution 3](chapters/3_FACTORY/solution3.md)
     - [Exercise 4](chapters/3_FACTORY/exercise4.md)
     - [Solution 4](chapters/3_FACTORY/solution4.md)
+
+## Singleton
+
+- [Singleton](chapters/5_SINGLETON/singleton.md)
+- [Singleton as Decorator](chapters/5_SINGLETON/singleton_as_decorator.md)
+- [Singleton as Metaclass](chapters/5_SINGLETON/singleton_as_metaclass.md)
