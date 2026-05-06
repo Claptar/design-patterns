@@ -60,3 +60,4 @@ Notes and exercises for learning design patterns.
 - [Singleton](chapters/5_SINGLETON/singleton.md)
 - [Singleton as Decorator](chapters/5_SINGLETON/singleton_as_decorator.md)
 - [Singleton as Metaclass](chapters/5_SINGLETON/singleton_as_metaclass.md)
+- [Monostate Pattern](chapters/5_SINGLETON/monostate_pattern.md)
