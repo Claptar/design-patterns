@@ -58,9 +58,17 @@ Notes and exercises for learning design patterns.
 ## Singleton
 
 - [Singleton](chapters/5_SINGLETON/singleton.md)
+    - [Exercise 1](chapters/5_SINGLETON/exercise1.md)
+    - [Solution 1](chapters/5_SINGLETON/solution1.md)
 - [Singleton as Decorator](chapters/5_SINGLETON/singleton_as_decorator.md)
+    - [Exercise 2](chapters/5_SINGLETON/exercise2.md)
+    - [Solution 2](chapters/5_SINGLETON/solution2.md)
 - [Singleton as Metaclass](chapters/5_SINGLETON/singleton_as_metaclass.md)
+    - [Exercise 3](chapters/5_SINGLETON/exercise3.md)
+    - [Solution 3](chapters/5_SINGLETON/solution3.md)
 - [Monostate Pattern](chapters/5_SINGLETON/monostate_pattern.md)
+    - [Exercise 4](chapters/5_SINGLETON/exercise4.md)
+    - [Solution 4](chapters/5_SINGLETON/solution4.md)
 
 ## Adapter
 
