@@ -7,7 +7,7 @@ title: Design Patterns
 
 Notes and exercises for learning design patterns.
 
-<details>
+<details markdown="1">
 <summary><strong>Introduction</strong></summary>
 
 - [SOLID](chapters/1_INTRODUCTION/solid.md)
@@ -18,7 +18,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Builder</strong> — <em>Creational</em></summary>
 
 - [Builder](chapters/2_BUILDER/builder.md)
@@ -34,7 +34,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Factory</strong> — <em>Creational</em></summary>
 
 - [Factory Methods as Named Constructors](chapters/3_FACTORY/factory_methods_named_constructors_note.md)
@@ -51,7 +51,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Prototype</strong> — <em>Creational</em></summary>
 
 - [Prototype](chapters/4_PROTOTYPE/prototype.md)
@@ -67,7 +67,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Singleton</strong> — <em>Creational</em></summary>
 
 - [Singleton](chapters/5_SINGLETON/singleton.md)
@@ -85,7 +85,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Adapter</strong> — <em>Structural</em></summary>
 
 - [Adapter Design Pattern](chapters/6_ADAPTER/adapter_design_pattern.md)
@@ -101,7 +101,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Bridge</strong> — <em>Structural</em></summary>
 
 - [Bridge Design Pattern](chapters/7_BRIDGE/bridge.md)
@@ -114,7 +114,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Composite</strong> — <em>Structural</em></summary>
 
 - [Composite Design Pattern](chapters/8_COMPOSITE/composite.md)
@@ -127,7 +127,7 @@ Notes and exercises for learning design patterns.
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Decorator</strong> — <em>Structural</em></summary>
 
 - [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)
