@@ -82,3 +82,13 @@ Notes and exercises for learning design patterns.
 - [Cached Adapter Design Pattern](chapters/6_ADAPTER/cached_adapter_design_pattern.md)
     - [Exercise 4](chapters/6_ADAPTER/exercise4.md)
     - [Solution 4](chapters/6_ADAPTER/solution4.md)
+
+## Bridge
+
+- [Bridge Design Pattern](chapters/7_BRIDGE/bridge.md)
+    - [Exercise 1](chapters/7_BRIDGE/exercise1.md)
+    - [Solution 1](chapters/7_BRIDGE/solution1.md)
+    - [Exercise 2](chapters/7_BRIDGE/exercise2.md)
+    - [Solution 2](chapters/7_BRIDGE/solution2.md)
+    - [Exercise 3](chapters/7_BRIDGE/exercise3.md)
+    - [Solution 3](chapters/7_BRIDGE/solution3.md)
