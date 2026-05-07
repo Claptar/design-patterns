@@ -41,6 +41,19 @@ The guide is published as a Jekyll site. Every `.md` file is a standalone readab
     - [Exercise 4](chapters/3_FACTORY/exercise4.md)
     - [Solution 4](chapters/3_FACTORY/solution4.md)
 
+## Prototype
+
+- [Prototype](chapters/4_PROTOTYPE/prototype.md)
+    - [Exercise 1](chapters/4_PROTOTYPE/exercise1.md)
+    - [Solution 1](chapters/4_PROTOTYPE/solution1.md)
+    - [Exercise 2](chapters/4_PROTOTYPE/exercise2.md)
+    - [Solution 2](chapters/4_PROTOTYPE/solution2.md)
+    - [Exercise 3](chapters/4_PROTOTYPE/exercise3.md)
+    - [Solution 3](chapters/4_PROTOTYPE/solution3.md)
+- [Prototype Factories](chapters/4_PROTOTYPE/prototype_factories.md)
+    - [Exercise 4](chapters/4_PROTOTYPE/exercise4.md)
+    - [Solution 4](chapters/4_PROTOTYPE/solution4.md)
+
 ## Singleton
 
 - [Singleton](chapters/5_SINGLETON/singleton.md)
@@ -68,3 +81,64 @@ The guide is published as a Jekyll site. Every `.md` file is a standalone readab
 - [Cached Adapter Design Pattern](chapters/6_ADAPTER/cached_adapter_design_pattern.md)
     - [Exercise 4](chapters/6_ADAPTER/exercise4.md)
     - [Solution 4](chapters/6_ADAPTER/solution4.md)
+
+## Bridge
+
+- [Bridge Design Pattern](chapters/7_BRIDGE/bridge.md)
+    - [Exercise 1](chapters/7_BRIDGE/exercise1.md)
+    - [Solution 1](chapters/7_BRIDGE/solution1.md)
+    - [Exercise 2](chapters/7_BRIDGE/exercise2.md)
+    - [Solution 2](chapters/7_BRIDGE/solution2.md)
+    - [Exercise 3](chapters/7_BRIDGE/exercise3.md)
+    - [Solution 3](chapters/7_BRIDGE/solution3.md)
+
+## Composite
+
+- [Composite Design Pattern](chapters/8_COMPOSITE/composite.md)
+    - [Exercise 1](chapters/8_COMPOSITE/exercise1.md)
+    - [Solution 1](chapters/8_COMPOSITE/solution1.md)
+    - [Exercise 2](chapters/8_COMPOSITE/exercise2.md)
+    - [Solution 2](chapters/8_COMPOSITE/solution2.md)
+    - [Exercise 3](chapters/8_COMPOSITE/exercise3.md)
+    - [Solution 3](chapters/8_COMPOSITE/solution3.md)
+
+## Decorator
+
+- [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)
+    - [Exercise 1](chapters/9_DECORATOR/exercise1.md)
+    - [Solution 1](chapters/9_DECORATOR/solution1.md)
+    - [Exercise 2](chapters/9_DECORATOR/exercise2.md)
+    - [Solution 2](chapters/9_DECORATOR/solution2.md)
+    - [Exercise 3](chapters/9_DECORATOR/exercise3.md)
+    - [Solution 3](chapters/9_DECORATOR/solution3.md)
+- [Transparent Decorator](chapters/9_DECORATOR/decorator_transparent.md)
+
+## Facade
+
+- [Facade Design Pattern](chapters/10_FACADE/facade.md)
+    - [Exercise 1](chapters/10_FACADE/exercise1.md)
+    - [Solution 1](chapters/10_FACADE/solution1.md)
+    - [Exercise 2](chapters/10_FACADE/exercise2.md)
+    - [Solution 2](chapters/10_FACADE/solution2.md)
+    - [Exercise 3](chapters/10_FACADE/exercise3.md)
+    - [Solution 3](chapters/10_FACADE/solution3.md)
+
+## Flyweight
+
+- [Flyweight Design Pattern](chapters/11_FLYWEIGHT/flyweight.md)
+    - [Exercise 1](chapters/11_FLYWEIGHT/exercise1.md)
+    - [Solution 1](chapters/11_FLYWEIGHT/solution1.md)
+    - [Exercise 2](chapters/11_FLYWEIGHT/exercise2.md)
+    - [Solution 2](chapters/11_FLYWEIGHT/solution2.md)
+    - [Exercise 3](chapters/11_FLYWEIGHT/exercise3.md)
+    - [Solution 3](chapters/11_FLYWEIGHT/solution3.md)
+
+## Proxy
+
+- [Proxy Design Pattern](chapters/12_PROXY/proxy.md)
+    - [Exercise 1](chapters/12_PROXY/exercise1.md)
+    - [Solution 1](chapters/12_PROXY/solution1.md)
+    - [Exercise 2](chapters/12_PROXY/exercise2.md)
+    - [Solution 2](chapters/12_PROXY/solution2.md)
+    - [Exercise 3](chapters/12_PROXY/exercise3.md)
+    - [Solution 3](chapters/12_PROXY/solution3.md)
