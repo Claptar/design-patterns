@@ -7,7 +7,8 @@ title: Design Patterns
 
 Notes and exercises for learning design patterns.
 
-## Introduction
+<details>
+<summary><strong>Introduction</strong></summary>
 
 - [SOLID](chapters/1_INTRODUCTION/solid.md)
     - [Exercise 1](chapters/1_INTRODUCTION/exercise1.md)
@@ -15,7 +16,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 3](chapters/1_INTRODUCTION/exercise3.md)
 - [Gamma Categorization of Design Patterns](chapters/1_INTRODUCTION/gamma_categorization.md)
 
-## Builder
+</details>
+
+<details>
+<summary><strong>Builder</strong> — <em>Creational</em></summary>
 
 - [Builder](chapters/2_BUILDER/builder.md)
     - [Exercise 1](chapters/2_BUILDER/exercise1.md)
@@ -28,7 +32,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 3](chapters/2_BUILDER/exercise3.md)
     - [Solution 3](chapters/2_BUILDER/solution3.md)
 
-## Factory
+</details>
+
+<details>
+<summary><strong>Factory</strong> — <em>Creational</em></summary>
 
 - [Factory Methods as Named Constructors](chapters/3_FACTORY/factory_methods_named_constructors_note.md)
     - [Exercise 1](chapters/3_FACTORY/exercise1.md)
@@ -42,7 +49,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 4](chapters/3_FACTORY/exercise4.md)
     - [Solution 4](chapters/3_FACTORY/solution4.md)
 
-## Prototype
+</details>
+
+<details>
+<summary><strong>Prototype</strong> — <em>Creational</em></summary>
 
 - [Prototype](chapters/4_PROTOTYPE/prototype.md)
     - [Exercise 1](chapters/4_PROTOTYPE/exercise1.md)
@@ -55,7 +65,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 4](chapters/4_PROTOTYPE/exercise4.md)
     - [Solution 4](chapters/4_PROTOTYPE/solution4.md)
 
-## Singleton
+</details>
+
+<details>
+<summary><strong>Singleton</strong> — <em>Creational</em></summary>
 
 - [Singleton](chapters/5_SINGLETON/singleton.md)
     - [Exercise 1](chapters/5_SINGLETON/exercise1.md)
@@ -70,7 +83,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 4](chapters/5_SINGLETON/exercise4.md)
     - [Solution 4](chapters/5_SINGLETON/solution4.md)
 
-## Adapter
+</details>
+
+<details>
+<summary><strong>Adapter</strong> — <em>Structural</em></summary>
 
 - [Adapter Design Pattern](chapters/6_ADAPTER/adapter_design_pattern.md)
     - [Exercise 1](chapters/6_ADAPTER/exercise1.md)
@@ -83,7 +99,10 @@ Notes and exercises for learning design patterns.
     - [Exercise 4](chapters/6_ADAPTER/exercise4.md)
     - [Solution 4](chapters/6_ADAPTER/solution4.md)
 
-## Bridge
+</details>
+
+<details>
+<summary><strong>Bridge</strong> — <em>Structural</em></summary>
 
 - [Bridge Design Pattern](chapters/7_BRIDGE/bridge.md)
     - [Exercise 1](chapters/7_BRIDGE/exercise1.md)
@@ -93,11 +112,23 @@ Notes and exercises for learning design patterns.
     - [Exercise 3](chapters/7_BRIDGE/exercise3.md)
     - [Solution 3](chapters/7_BRIDGE/solution3.md)
 
-## Composite
+</details>
+
+<details>
+<summary><strong>Composite</strong> — <em>Structural</em></summary>
 
 - [Composite Design Pattern](chapters/8_COMPOSITE/composite.md)
+    - [Exercise 1](chapters/8_COMPOSITE/exercise1.md)
+    - [Solution 1](chapters/8_COMPOSITE/solution1.md)
+    - [Exercise 2](chapters/8_COMPOSITE/exercise2.md)
+    - [Solution 2](chapters/8_COMPOSITE/solution2.md)
+    - [Exercise 3](chapters/8_COMPOSITE/exercise3.md)
+    - [Solution 3](chapters/8_COMPOSITE/solution3.md)
 
-## Decorator
+</details>
+
+<details>
+<summary><strong>Decorator</strong> — <em>Structural</em></summary>
 
 - [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)
     - [Exercise 1](chapters/9_DECORATOR/exercise1.md)
@@ -107,3 +138,5 @@ Notes and exercises for learning design patterns.
     - [Exercise 3](chapters/9_DECORATOR/exercise3.md)
     - [Solution 3](chapters/9_DECORATOR/solution3.md)
 - [Transparent Decorator](chapters/9_DECORATOR/decorator_transparent.md)
+
+</details>
