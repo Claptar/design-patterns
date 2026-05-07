@@ -171,5 +171,11 @@ Notes and exercises for learning design patterns.
 <summary><strong>Proxy</strong> — <em>Structural</em></summary>
 
 - [Proxy Design Pattern](chapters/12_PROXY/proxy.md)
+    - [Exercise 1](chapters/12_PROXY/exercise1.md)
+    - [Solution 1](chapters/12_PROXY/solution1.md)
+    - [Exercise 2](chapters/12_PROXY/exercise2.md)
+    - [Solution 2](chapters/12_PROXY/solution2.md)
+    - [Exercise 3](chapters/12_PROXY/exercise3.md)
+    - [Solution 3](chapters/12_PROXY/solution3.md)
 
 </details>
