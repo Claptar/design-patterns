@@ -1,0 +1,52 @@
+<svg width="680" viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Composite pattern mental model</title>
+  <desc>A tree showing a root folder containing two sub-folders and a file, each sub-folder containing files. All nodes respond to the same size() call.</desc>
+
+  <!-- Root Folder — coral -->
+  <rect x="250" y="20" width="180" height="52" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="340" y="41" text-anchor="middle" dominant-baseline="central">Folder  /home</text>
+  <text font-family="sans-serif" font-size="12" fill="#993C1D" x="340" y="59" text-anchor="middle" dominant-baseline="central">.size() → 3,352,064</text>
+
+  <!-- edges root -> children -->
+  <line x1="300" y1="72" x2="160" y2="148" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+  <line x1="340" y1="72" x2="340" y2="148" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+  <line x1="380" y1="72" x2="520" y2="148" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Sub-folder documents — coral -->
+  <rect x="70" y="148" width="180" height="52" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="160" y="169" text-anchor="middle" dominant-baseline="central">Folder  /docs</text>
+  <text font-family="sans-serif" font-size="12" fill="#993C1D" x="160" y="187" text-anchor="middle" dominant-baseline="central">.size() → 205,824</text>
+
+  <!-- File readme — teal -->
+  <rect x="280" y="148" width="120" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="340" y="169" text-anchor="middle" dominant-baseline="central">File</text>
+  <text font-family="sans-serif" font-size="12" fill="#0F6E56" x="340" y="187" text-anchor="middle" dominant-baseline="central">.size() → 512</text>
+
+  <!-- Sub-folder pictures — coral -->
+  <rect x="430" y="148" width="180" height="52" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="520" y="169" text-anchor="middle" dominant-baseline="central">Folder  /pics</text>
+  <text font-family="sans-serif" font-size="12" fill="#993C1D" x="520" y="187" text-anchor="middle" dominant-baseline="central">.size() → 3,145,728</text>
+
+  <!-- edges docs -> leaves -->
+  <line x1="120" y1="200" x2="90" y2="252" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+  <line x1="200" y1="200" x2="230" y2="252" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- leaves under docs — teal -->
+  <rect x="40" y="252" width="100" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="90" y="272" text-anchor="middle" dominant-baseline="central">File</text>
+
+  <rect x="185" y="252" width="100" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="235" y="272" text-anchor="middle" dominant-baseline="central">File</text>
+
+  <!-- edge pics -> leaf -->
+  <line x1="520" y1="200" x2="520" y2="252" stroke="#888780" stroke-width="0.5" opacity="0.5"/>
+  <rect x="470" y="252" width="100" height="40" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="520" y="272" text-anchor="middle" dominant-baseline="central">File</text>
+
+  <!-- Legend -->
+  <rect x="555" y="22" width="14" height="14" rx="3" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="575" y="33">Composite (Folder)</text>
+  <rect x="555" y="42" width="14" height="14" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="575" y="53">Leaf (File)</text>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="555" y="70">All respond to .size()</text>
+</svg>

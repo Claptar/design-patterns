@@ -1,0 +1,46 @@
+<svg width="680" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Composite pattern structure</title>
+  <desc>Class diagram showing Component interface, Leaf and Composite classes, with Composite holding a list of Component children that delegate back to Component</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Component (interface) — purple -->
+  <rect x="250" y="30" width="180" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489" x="340" y="52" text-anchor="middle" dominant-baseline="central">Component</text>
+  <text font-family="sans-serif" font-size="12" fill="#534AB7" x="340" y="70" text-anchor="middle" dominant-baseline="central">«interface»  operation()</text>
+
+  <!-- inheritance arrow: Component -> Leaf -->
+  <line x1="290" y1="86" x2="155" y2="180" stroke="#534AB7" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+  <!-- inheritance arrow: Component -> Composite -->
+  <line x1="390" y1="86" x2="510" y2="180" stroke="#534AB7" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+  <!-- Leaf — teal -->
+  <rect x="60" y="180" width="190" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#085041" x="155" y="202" text-anchor="middle" dominant-baseline="central">Leaf</text>
+  <text font-family="sans-serif" font-size="12" fill="#0F6E56" x="155" y="220" text-anchor="middle" dominant-baseline="central">operation() — real work</text>
+
+  <!-- Composite — coral -->
+  <rect x="430" y="180" width="200" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13" x="530" y="202" text-anchor="middle" dominant-baseline="central">Composite</text>
+  <text font-family="sans-serif" font-size="12" fill="#993C1D" x="530" y="220" text-anchor="middle" dominant-baseline="central">children: list[Component]</text>
+
+  <!-- dashed delegation arrow: Composite -> Component (loop down and back up) -->
+  <path d="M530 236 L530 290 L340 290 L340 86" fill="none" stroke="#888780" stroke-width="0.5" stroke-dasharray="5 4" marker-end="url(#arrow-gray)" opacity="0.6"/>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="436" y="283" text-anchor="middle" opacity="0.8">delegates to each child</text>
+
+  <!-- Client — gray -->
+  <rect x="30" y="30" width="110" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A" x="85" y="52" text-anchor="middle" dominant-baseline="central">Client</text>
+
+  <!-- Client -> Component -->
+  <line x1="140" y1="52" x2="248" y2="52" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow-gray)"/>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="193" y="44" text-anchor="middle">uses</text>
+</svg>

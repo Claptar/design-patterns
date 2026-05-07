@@ -92,3 +92,7 @@ Notes and exercises for learning design patterns.
     - [Solution 2](chapters/7_BRIDGE/solution2.md)
     - [Exercise 3](chapters/7_BRIDGE/exercise3.md)
     - [Solution 3](chapters/7_BRIDGE/solution3.md)
+
+## Composite
+
+- [Composite Design Pattern](chapters/8_COMPOSITE/composite.md)
