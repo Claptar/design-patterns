@@ -128,6 +128,13 @@ Notes and exercises for learning design patterns.
 </details>
 
 <details markdown="1">
+<summary><strong>Facade</strong> — <em>Structural</em></summary>
+
+- [Facade Design Pattern](chapters/10_FACADE/facade.md)
+
+</details>
+
+<details markdown="1">
 <summary><strong>Decorator</strong> — <em>Structural</em></summary>
 
 - [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)
