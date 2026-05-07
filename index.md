@@ -96,3 +96,7 @@ Notes and exercises for learning design patterns.
 ## Composite
 
 - [Composite Design Pattern](chapters/8_COMPOSITE/composite.md)
+
+## Decorator
+
+- [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)

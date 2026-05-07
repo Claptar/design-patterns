@@ -1,0 +1,47 @@
+<svg width="680" height="400" viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Decorator pattern structure</title>
+  <desc>Structural diagram showing how a Decorator wraps a Component and implements the same interface, with the client unaware of the wrapping</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Client -->
+  <rect x="40" y="170" width="130" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text x="105" y="194" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">Client</text>
+  <text x="105" y="213" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">Uses the interface</text>
+
+  <!-- Arrow: client -> component interface -->
+  <line x1="170" y1="198" x2="218" y2="198" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Component interface -->
+  <rect x="220" y="170" width="150" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="295" y="194" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#3C3489">Component</text>
+  <text x="295" y="213" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#534AB7">Common interface</text>
+
+  <!-- Arrow: component -> concrete component -->
+  <line x1="260" y1="226" x2="205" y2="298" stroke="#888780" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: component -> decorator -->
+  <line x1="330" y1="226" x2="430" y2="298" stroke="#888780" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- Concrete component -->
+  <rect x="120" y="300" width="170" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="205" y="324" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#085041">ConcreteComponent</text>
+  <text x="205" y="343" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#0F6E56">Real implementation</text>
+
+  <!-- Decorator -->
+  <rect x="360" y="300" width="160" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="440" y="324" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#712B13">Decorator</text>
+  <text x="440" y="343" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#993C1D">Wraps + extends</text>
+
+  <!-- Arrow: decorator holds reference back to component (dashed curve) -->
+  <path d="M 520 300 Q 590 240 590 198 Q 590 155 510 175 Q 450 185 370 198" fill="none" stroke="#888780" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arrow)"/>
+  <text x="608" y="241" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">holds a</text>
+  <text x="608" y="256" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#5F5E5A">reference</text>
+</svg>
