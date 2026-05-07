@@ -166,3 +166,10 @@ Notes and exercises for learning design patterns.
     - [Solution 3](chapters/11_FLYWEIGHT/solution3.md)
 
 </details>
+
+<details markdown="1">
+<summary><strong>Proxy</strong> — <em>Structural</em></summary>
+
+- [Proxy Design Pattern](chapters/12_PROXY/proxy.md)
+
+</details>
