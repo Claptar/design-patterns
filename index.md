@@ -100,3 +100,4 @@ Notes and exercises for learning design patterns.
 ## Decorator
 
 - [Decorator Design Pattern](chapters/9_DECORATOR/decorator.md)
+- [Transparent Decorator](chapters/9_DECORATOR/decorator_transparent.md)
