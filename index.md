@@ -158,5 +158,11 @@ Notes and exercises for learning design patterns.
 <summary><strong>Flyweight</strong> — <em>Structural</em></summary>
 
 - [Flyweight Design Pattern](chapters/11_FLYWEIGHT/flyweight.md)
+    - [Exercise 1](chapters/11_FLYWEIGHT/exercise1.md)
+    - [Solution 1](chapters/11_FLYWEIGHT/solution1.md)
+    - [Exercise 2](chapters/11_FLYWEIGHT/exercise2.md)
+    - [Solution 2](chapters/11_FLYWEIGHT/solution2.md)
+    - [Exercise 3](chapters/11_FLYWEIGHT/exercise3.md)
+    - [Solution 3](chapters/11_FLYWEIGHT/solution3.md)
 
 </details>
