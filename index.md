@@ -196,3 +196,10 @@ Notes and exercises for learning design patterns.
     - [Solution 4](chapters/13_CHAIN_OF_RESPONSIBILITY/solution4.md)
 
 </details>
+
+<details markdown="1">
+<summary><strong>Command</strong> — <em>Behavioral</em></summary>
+
+- [Command Design Pattern](chapters/14_COMMAND/command.md)
+
+</details>
