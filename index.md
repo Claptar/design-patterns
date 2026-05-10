@@ -184,5 +184,6 @@ Notes and exercises for learning design patterns.
 <summary><strong>Chain of Responsibility</strong> — <em>Behavioral</em></summary>
 
 - [Chain of Responsibility: Method Chain](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_method_chain.md)
+- [Command Query Separation](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_cqs.md)
 
 </details>

@@ -1,0 +1,42 @@
+<svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="12">
+
+  <rect width="680" height="220" fill="#0f1117"/>
+
+  <!-- QUERY side -->
+  <rect x="30" y="20" width="290" height="160" rx="8" fill="#0f1f2e" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="30" y="20" width="290" height="32" rx="8" fill="#1a2e42"/>
+  <rect x="30" y="44" width="290" height="8" fill="#1a2e42"/>
+  <text x="175" y="41" fill="#93c5fd" font-size="13" text-anchor="middle" font-weight="bold">Query</text>
+
+  <text x="52" y="76" fill="#6b7280" font-size="11">✓  has a return value</text>
+  <text x="52" y="96" fill="#6b7280" font-size="11">✓  does not modify state</text>
+  <text x="52" y="116" fill="#6b7280" font-size="11">✓  safe to call many times</text>
+  <text x="52" y="136" fill="#6b7280" font-size="11">✓  same answer each time</text>
+
+  <rect x="50" y="150" width="250" height="20" rx="4" fill="#162030"/>
+  <text x="175" y="164" fill="#60a5fa" font-size="11" text-anchor="middle">def total(self) → float</text>
+
+  <!-- COMMAND side -->
+  <rect x="360" y="20" width="290" height="160" rx="8" fill="#1a1f0f" stroke="#22c55e" stroke-width="1.5"/>
+  <rect x="360" y="20" width="290" height="32" rx="8" fill="#1f2e14"/>
+  <rect x="360" y="44" width="290" height="8" fill="#1f2e14"/>
+  <text x="505" y="41" fill="#86efac" font-size="13" text-anchor="middle" font-weight="bold">Command</text>
+
+  <text x="382" y="76" fill="#6b7280" font-size="11">✓  returns None</text>
+  <text x="382" y="96" fill="#6b7280" font-size="11">✓  modifies observable state</text>
+  <text x="382" y="116" fill="#6b7280" font-size="11">✓  has visible side effects</text>
+  <text x="382" y="136" fill="#6b7280" font-size="11">✓  order relative to others matters</text>
+
+  <rect x="380" y="150" width="250" height="20" rx="4" fill="#141f0c"/>
+  <text x="505" y="164" fill="#4ade80" font-size="11" text-anchor="middle">def checkout(self) → None</text>
+
+  <!-- Divider label -->
+  <text x="340" y="108" fill="#374151" font-size="18" text-anchor="middle">|</text>
+  <text x="340" y="125" fill="#4b5563" font-size="10" text-anchor="middle">never</text>
+  <text x="340" y="138" fill="#4b5563" font-size="10" text-anchor="middle">both</text>
+
+  <!-- Bottom rule -->
+  <rect x="30" y="192" width="620" height="18" rx="4" fill="#161a1f"/>
+  <text x="340" y="204" fill="#4b5563" font-size="10" text-anchor="middle">If a method returns a value AND has a side effect → split it into a query + a command</text>
+
+</svg>
