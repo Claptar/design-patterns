@@ -184,7 +184,15 @@ Notes and exercises for learning design patterns.
 <summary><strong>Chain of Responsibility</strong> — <em>Behavioral</em></summary>
 
 - [Chain of Responsibility: Method Chain](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_method_chain.md)
+    - [Exercise 1](chapters/13_CHAIN_OF_RESPONSIBILITY/exercise1.md)
+    - [Solution 1](chapters/13_CHAIN_OF_RESPONSIBILITY/solution1.md)
+    - [Exercise 2](chapters/13_CHAIN_OF_RESPONSIBILITY/exercise2.md)
+    - [Solution 2](chapters/13_CHAIN_OF_RESPONSIBILITY/solution2.md)
 - [Command Query Separation](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_cqs.md)
 - [Broker Chain](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_broker.md)
+    - [Exercise 3](chapters/13_CHAIN_OF_RESPONSIBILITY/exercise3.md)
+    - [Solution 3](chapters/13_CHAIN_OF_RESPONSIBILITY/solution3.md)
+    - [Exercise 4](chapters/13_CHAIN_OF_RESPONSIBILITY/exercise4.md)
+    - [Solution 4](chapters/13_CHAIN_OF_RESPONSIBILITY/solution4.md)
 
 </details>
