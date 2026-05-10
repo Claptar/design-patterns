@@ -179,3 +179,10 @@ Notes and exercises for learning design patterns.
     - [Solution 3](chapters/12_PROXY/solution3.md)
 
 </details>
+
+<details markdown="1">
+<summary><strong>Chain of Responsibility</strong> — <em>Behavioral</em></summary>
+
+- [Chain of Responsibility: Method Chain](chapters/13_CHAIN_OF_RESPONSIBILITY/chain_of_responsibility_method_chain.md)
+
+</details>
